@@ -47,3 +47,53 @@ git忽略文件
         [0-9] 方括号内两个字符中间添加短横线表示在这两个字符范围内的都可以匹配（例子：[0-9]：匹配0~9之间的字符） 
         两个星号 ** 表示匹配任意中间‘目录’（例子：a/**/b ：匹配 a/c/b ，a/c/d/b，a/...../b等）
                                          （例子：doc/**/*.txt：忽略当前目录中doc目录下所有子目录中的 .txt 格式文件，不忽略其他含有doc目录中的 .txt 格式文件）
+
+
+git 连接远程仓库 （远程仓库默认为 origin）
+
+第一次连接： 网址链接方式:git remote add origin '远程仓库地址网址'
+            ssh连接方式: git remote add origin '远程仓库地址'
+                    远程仓库在建立时可能会有文件需要先用：git pull origin master --allow-unrelated-histories 
+                                                  再用git push -u origin master
+
+密钥SSH-key连接方式
+    生成密钥 ssh-keygen-t rsa -b 4096 -C"your_email@example.com"
+    连续敲击三次回车，即可在 C:\Users\用户名\.ssh 目录中生成 id_rsa 和 id_rsa.pub 两个文件
+
+    生成的公钥在远程仓库中配置公钥
+
+    判断是否配置成功 ssh-T git@'远程仓库名(gitee.comhuo1github.com)'
+
+将远程仓库克隆到本地仓库：git clone '远程仓库地址'
+
+master主分支用来保存和记录整个项目已完成的功能代码
+功能分支专门用来开发新功能的分支，临时从master分支分叉出来，功能完成并通过测试后再合并带master分支上
+
+git branch ‘查看当前git仓库中所有的分支列表’ ：*master (*号表示当前所处的分支)
+
+git branch 分支名称 ‘基于当前分支，创建一个新的分支，新分支中的代码和当前分支完全一样。注：此时还处于当前分支中，没有切换分支’
+
+git checkout 分支名 ‘切换到指定的分支上’
+
+git checkout -b 分支名 ‘创建指定名称的分支，并切换到该分支上’
+
+1、git checkout 分支名1  2、git merge 分支名2 ‘切换到分支名1上并将分支名2合并到分支名1上’
+
+git branch -d 分支名 ‘删除分支。注：需切换到其他分支上在删除该分支’
+
+git checkout 分支名1， git merge 分支名2 ‘在两个不同分支中，对同一个文件做了不同修改，需要我们手动解决包含冲突的文件’ 
+再提交 git add . , git commit -m '解决了分支合并冲突问题'  
+        
+git push -u 远程仓库的别名 本地分支名称:远程分支名称 ‘-u 表示把本地分支和远程分支进行关联，只在第一次推送时带 -u参数’
+git push -u 远程仓库别名 本地分支名称 （简化：本地和远程名称一致）
+
+git remote show 远程仓库名称 ‘查看远程仓库分支列表信息’
+
+git checkout 远程分支名称 ‘把远程仓库中的分支下载到本地仓库中，保持和远程分支名称相同’
+git checkout -b 本地分支名称 远程仓库名称/远程分支名称 ‘把远程分支下载到本地仓库中并重命名’
+
+git pull ‘把远程分支对应的最新代码下载到本地对应的分支中，保持一致’
+
+git push 远程仓库名称 --delete 远程分支名称 ‘删除远程仓库中指定的分支’
+
+git remote ‘查看当前配置了哪些远程仓库’
